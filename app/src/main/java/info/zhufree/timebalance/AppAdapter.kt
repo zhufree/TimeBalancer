@@ -42,6 +42,8 @@ class AppAdapter(
         Log.i("apps", pkgNameSet.toString())
         holder.itemView.v_app_check_border.visibility = if (pkgInfo.packageName in pkgNameSet)
             VISIBLE else GONE
+        holder.isChecked = pkgInfo.packageName in pkgNameSet
+
         holder.itemView.setOnClickListener {
             if (holder.isChecked) {
                 holder.itemView.v_app_check_border.visibility = GONE

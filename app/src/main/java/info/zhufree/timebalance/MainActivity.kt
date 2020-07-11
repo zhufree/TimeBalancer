@@ -164,12 +164,17 @@ class MainActivity : AppCompatActivity() {
         calendar.add(DAY_OF_WEEK, 1)
         val todayEndTime = calendar.timeInMillis
         // 设置一周的起始时间和结束时间
-        calendar.add(WEEK_OF_MONTH, 0)
-        calendar.set(DAY_OF_WEEK, 2)
+        calendar.add(DAY_OF_WEEK, -1)
+        if (calendar.get(DAY_OF_WEEK) == 1) {
+            // sunday
+            calendar.add(WEEK_OF_MONTH, -1) // 退回周六
+            calendar.set(DAY_OF_WEEK, 2)// 设置周一
+        } else {
+            calendar.set(DAY_OF_WEEK, 2)
+        }
         val weekStartTime = calendar.timeInMillis
         calendar.add(DAY_OF_WEEK, 7)
         val weekEndTime = calendar.timeInMillis
-        Log.i("time", "$todayStartTime , $todayEndTime, $weekStartTime, $weekEndTime")
 
         val sortedEvents = mutableMapOf<String, MutableList<UsageEvents.Event>>()
         val mUsageStatsManager =
